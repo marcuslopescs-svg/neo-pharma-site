@@ -1161,10 +1161,14 @@ input:focus,select:focus,textarea:focus{border-color:var(--graphite);box-shadow:
       tile.addEventListener('animationiteration',function(e){show(Math.round(e.elapsedTime/dur)*columns+first)});
       layer.appendChild(tile);
     })(t);
-    requestAnimationFrame(function(){layer.style.opacity=1});
+    setTimeout(function(){layer.style.opacity=1},30);
   }
-  new ResizeObserver(function(en){var r=en[0].contentRect,L=measure(r.width,r.height);if(!L)return;
-    if(cur&&cur.columns===L.columns&&cur.sweep===L.sweep&&cur.unit===L.unit)return;cur=L;build(L)}).observe(host);
+  function fit(w,h){var L=measure(w,h);if(!L)return;
+    if(cur&&cur.columns===L.columns&&cur.sweep===L.sweep&&cur.unit===L.unit)return;cur=L;build(L)}
+  var b0=host.getBoundingClientRect(); fit(b0.width,b0.height);
+  addEventListener('load',function(){var b=host.getBoundingClientRect();fit(b.width,b.height)});
+  if('ResizeObserver' in window)new ResizeObserver(function(en){var r=en[0].contentRect;fit(r.width,r.height)}).observe(host);
+  else addEventListener('resize',function(){var b=host.getBoundingClientRect();fit(b.width,b.height)});
   if('IntersectionObserver' in window)new IntersectionObserver(function(es){host.classList.toggle('tgh-paused',!es[0].isIntersecting)}).observe(host);
 })();
 </script>
