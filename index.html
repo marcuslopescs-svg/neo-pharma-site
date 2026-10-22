@@ -679,6 +679,44 @@ input:focus,select:focus,textarea:focus{border-color:var(--graphite);box-shadow:
 .tgh-fallback{display:none}
 .tgh.tgh-static{height:auto;container-type:normal}
 .tgh-static .tgh-fallback{display:block;width:min(720px,90%);margin:0 auto;border-radius:10px;aspect-ratio:16/9;object-fit:cover}
+
+/* =====================================================================
+   EFEITOS PREMIUM (sem alterar estrutura)
+   ===================================================================== */
+/* topo em vidro ao rolar */
+.site-header{transition:background .4s ease,backdrop-filter .4s ease}
+.site-header.scrolled{background:rgba(255,255,255,.82);-webkit-backdrop-filter:saturate(1.4) blur(14px);backdrop-filter:saturate(1.4) blur(14px)}
+/* banner: entrada do texto a cada slide */
+.slide .inner>*{opacity:0;transform:translateY(16px);transition:opacity .8s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
+.slide.on .inner>*{opacity:1;transform:none}
+.slide.on .inner>*:nth-child(2){transition-delay:.08s}.slide.on .inner>*:nth-child(3){transition-delay:.16s}.slide.on .inner>*:nth-child(4){transition-delay:.24s}
+.slide .kicker{background:linear-gradient(90deg,#C9CDD3,#FFFFFF 50%,#C9CDD3);-webkit-background-clip:text;background-clip:text;color:transparent}
+/* barra de progresso no indicador ativo */
+.dots button{position:relative;overflow:hidden}
+.dots button[aria-current="true"]{background:rgba(255,255,255,.35)}
+.dots button[aria-current="true"]::after{content:"";position:absolute;inset:0;background:#fff;transform-origin:left;animation:dot-fill 7s linear forwards}
+.hero:hover .dots button[aria-current="true"]::after{animation-play-state:paused}
+@keyframes dot-fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+/* revelação suave ao rolar */
+.rv-on .rv{opacity:0;transform:translateY(22px);transition:opacity .9s cubic-bezier(.2,.7,.2,1) var(--rv-d,0ms),transform 1s cubic-bezier(.2,.7,.2,1) var(--rv-d,0ms)}
+.rv-on .rv.rv-in{opacity:1;transform:none}
+.rv-on .timeline.rv-line::before{transform:scaleX(0);transform-origin:left;transition:transform 1.6s cubic-bezier(.2,.7,.2,1) .2s}
+.rv-on .timeline.rv-line.rv-in::before{transform:none}
+@media (max-width:900px){.rv-on .timeline.rv-line::before{transform:scaleY(0);transform-origin:top}.rv-on .timeline.rv-line.rv-in::before{transform:none}}
+/* fotos: zoom lento ao passar o mouse */
+.about-media .photo img,.q-media .photo img{transition:transform 1.4s cubic-bezier(.2,.7,.2,1)}
+.about-media:hover .photo img,.q-media .photo:hover img{transform:scale(1.035)}
+/* números das etapas ganham cromado no hover */
+.steps li::before{transition:color .3s}
+.steps li:hover::before{background:linear-gradient(135deg,#0E0F12,#8D939C 50%,#0E0F12);-webkit-background-clip:text;background-clip:text;color:transparent}
+/* rodapé com monograma em marca d'água */
+footer{position:relative;overflow:hidden}
+footer::after{content:"";position:absolute;right:-60px;bottom:-40px;width:min(560px,70vw);aspect-ratio:640/378;background:#fff;opacity:0;pointer-events:none}
+footer>*{position:relative;z-index:1}
+@media (prefers-reduced-motion:reduce){
+  .slide .inner>*{opacity:1;transform:none}
+  .dots button[aria-current="true"]::after{animation:none;transform:none}
+}
 </style>
 </head>
 <body>
@@ -856,7 +894,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--graphite);box-shadow:
       <p class="kicker">Pesquisa e desenvolvimento</p>
       <h2>Inovação que nasce no laboratório.</h2>
     </div>
-    <div class="tgh" aria-hidden="true"><img class="tgh-fallback" src="img/pesquisa.jpg" alt="" loading="lazy"></div>
+    <div class="tgh" aria-hidden="true"><img class="tgh-fallback" src="img/galeria/g02.jpg" alt="" loading="lazy"></div>
     <div class="wrap pc-foot">
       <p>Nossa equipe de P&amp;D acompanha os avanços científicos para criar fórmulas modernas, com ativos selecionados e eficácia estudada em cada etapa.</p>
     </div>
@@ -1108,9 +1146,8 @@ input:focus,select:focus,textarea:focus{border-color:var(--graphite);box-shadow:
   var host=document.querySelector('.tgh'); if(!host) return;
   if(!(window.CSS&&CSS.supports&&CSS.supports('container-type','size'))){host.classList.add('tgh-static');return}
   var mobile=matchMedia('(max-width:700px)').matches;
-  var LIST=['pesquisa','banner-2','area-emagrecimento','empresa','qualidade-2','area-estetica-beleza','banner-3','qualidade-1','area-alto-rendimento','banner-1'];
-  var LIGHT={'banner-1':1,'banner-2':1,'banner-3':1,'pesquisa':1};
-  var imgs=LIST.map(function(n){return 'img/'+n+(mobile&&LIGHT[n]?'-m':'')+'.jpg'});
+  var LIST=['g03','g02','g01','g07','g06','g04','g08','g05','g09','g10'];
+  var imgs=LIST.map(function(n){return 'img/galeria/'+n+(mobile?'-m':'')+'.jpg'});
   imgs.forEach(function(src){var i=new Image();i.src=src});
   var SLICES=mobile?10:16, CAMERA=1.6, MAXW=55, SPEED=4, TILE=40, ASPECT=16/9, GAP=6, AXIS=50, FADE=12;
   var bend=Math.min(85,Math.max(5,80))*Math.PI/180;
@@ -1170,6 +1207,37 @@ input:focus,select:focus,textarea:focus{border-color:var(--graphite);box-shadow:
   if('ResizeObserver' in window)new ResizeObserver(function(en){var r=en[0].contentRect;fit(r.width,r.height)}).observe(host);
   else addEventListener('resize',function(){var b=host.getBoundingClientRect();fit(b.width,b.height)});
   if('IntersectionObserver' in window)new IntersectionObserver(function(es){host.classList.toggle('tgh-paused',!es[0].isIntersecting)}).observe(host);
+})();
+</script>
+
+<script>
+// Efeitos premium: revelação ao rolar, contagem dos números e marca d'água
+(function(){
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // marca d'água do rodapé usa o monograma da logo
+  var mk=document.querySelector('.logo-mark'), ft=document.querySelector('footer');
+  if(mk&&ft){var u=getComputedStyle(mk).getPropertyValue('--src').trim();
+    if(u){var st=document.createElement('style');st.textContent='footer::after{-webkit-mask-image:'+u+';mask-image:'+u+';-webkit-mask-size:contain;mask-size:contain;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:center;mask-position:center;opacity:.04}';document.head.appendChild(st)}}
+  if(reduce||!('IntersectionObserver' in window)) return;
+  var SEL='.sec-head,.pc-head,.pc-foot,.about-media,.about-text,.line,.timeline li,.steps li,.q-text,.q-media .photo,.g-stats>div,.g-tests,.g-cta,.partner,.faq details,.contact-info,.form-card';
+  var els=[].slice.call(document.querySelectorAll(SEL));
+  document.documentElement.classList.add('rv-on');
+  els.forEach(function(el){
+    el.classList.add('rv');
+    var sib=[].slice.call(el.parentNode.children).filter(function(c){return c.matches(SEL)});
+    el.style.setProperty('--rv-d',Math.min(sib.indexOf(el),6)*90+'ms');
+    if(el.getBoundingClientRect().top<innerHeight*.92) el.classList.add('rv-in');
+  });
+  var tl=document.querySelector('.timeline'); if(tl){tl.classList.add('rv-line')}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('rv-in');io.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px'});
+  els.concat(tl?[tl]:[]).forEach(function(el){if(!el.classList.contains('rv-in'))io.observe(el)});
+  // contagem dos números da Garantia
+  var nums=[].slice.call(document.querySelectorAll('.g-stats strong')).filter(function(n){return /^\d+%$/.test(n.textContent.trim())});
+  var io2=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;io2.unobserve(e.target);
+    var el=e.target,end=parseInt(el.textContent,10),t0=null;
+    function step(t){if(!t0)t0=t;var p=Math.min(1,(t-t0)/1400),v=Math.round(end*(1-Math.pow(1-p,3)));el.textContent=v+'%';if(p<1)requestAnimationFrame(step)}
+    el.textContent='0%';requestAnimationFrame(step)})},{threshold:.6});
+  nums.forEach(function(n){io2.observe(n)});
 })();
 </script>
 <script type="module">
