@@ -1017,6 +1017,7 @@ footer>*{position:relative;z-index:1}
       </div>
       <div class="form-card">
         <form id="contact-form" novalidate>
+          <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden"><label for="f-website">Não preencha</label><input id="f-website" name="website" tabindex="-1" autocomplete="off"></div>
           <div class="field"><label for="f-nome">Nome completo</label><input id="f-nome" name="nome" autocomplete="name"></div>
           <div class="field"><label for="f-empresa">Empresa (opcional)</label><input id="f-empresa" name="empresa" autocomplete="organization"></div>
           <div class="field"><label for="f-email">E-mail</label><input id="f-email" name="email" type="email" autocomplete="email"></div>
@@ -1114,6 +1115,8 @@ footer>*{position:relative;z-index:1}
 
   // formulário: as mensagens chegam neste e-mail (troque pelo e-mail real da empresa)
   var FORM_EMAIL='contato@neopharma.com.br';
+  // banco de dados (Supabase): o site só consegue GRAVAR mensagens, nunca ler
+  var SB_URL='https://hwaoaiqiikcfusglgmsq.supabase.co', SB_KEY='sb_publishable_BhhWoe4W8UQCtxeKiH26dg_rPgHi_AO';
   var sel=document.getElementById('f-assunto');
   document.querySelectorAll('[data-topic]').forEach(function(a){a.addEventListener('click',function(){sel.value=a.dataset.topic})});
   var form=document.getElementById('contact-form'),status=document.getElementById('form-status');
@@ -1128,12 +1131,23 @@ footer>*{position:relative;z-index:1}
     if(miss.length){status.textContent='Para enviar, preencha '+miss.join(', ')+'.';return}
     var btnS=form.querySelector('button[type=submit]');btnS.disabled=true;btnS.textContent='Enviando…';
     status.textContent='Enviando sua mensagem…';
-    var data=new FormData(form);data.append('_subject','Contato pelo site — '+sel.value);data.append('_template','table');data.append('_captcha','false');
-    fetch('https://formsubmit.co/ajax/'+FORM_EMAIL,{method:'POST',headers:{'Accept':'application/json'},body:data})
-      .then(function(r){if(!r.ok)throw 0;return r.json()})
-      .then(function(){status.textContent='Mensagem enviada. Obrigado, '+form.nome.value.trim().split(' ')[0]+'! Nossa equipe retorna em até um dia útil.';form.reset()})
-      .catch(function(){status.textContent='Não foi possível enviar agora. Escreva para '+FORM_EMAIL+' ou tente novamente em alguns minutos.'})
-      .then(function(){btnS.disabled=false;btnS.textContent='Enviar mensagem'});
+    var nomeP=form.nome.value.trim().split(' ')[0];
+    function done(ok){
+      status.textContent=ok?'Mensagem enviada. Obrigado, '+nomeP+'! Nossa equipe retorna em até um dia útil.'
+        :'Não foi possível enviar agora. Escreva para '+FORM_EMAIL+' ou tente novamente em alguns minutos.';
+      if(ok)form.reset(); btnS.disabled=false; btnS.textContent='Enviar mensagem';
+    }
+    if(form.website&&form.website.value){done(true);return} // robô preencheu o campo invisível
+    var reg={nome:form.nome.value.trim(),empresa:form.empresa.value.trim()||null,email:form.email.value.trim(),
+      telefone:form.telefone.value.trim()||null,assunto:sel.value,mensagem:form.mensagem.value.trim(),lgpd:true};
+    var toDb=fetch(SB_URL+'/rest/v1/contatos',{method:'POST',headers:{'apikey':SB_KEY,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify(reg)})
+      .then(function(r){if(!r.ok)throw 0;return true}).catch(function(){return false});
+    var data=new FormData();Object.keys(reg).forEach(function(k){if(reg[k]!==null&&k!=='lgpd')data.append(k,reg[k])});
+    data.append('_subject','Contato pelo site — '+sel.value);data.append('_template','table');data.append('_captcha','false');
+    var toMail=fetch('https://formsubmit.co/ajax/'+FORM_EMAIL,{method:'POST',headers:{'Accept':'application/json'},body:data})
+      .then(function(r){if(!r.ok)throw 0;return true}).catch(function(){return false});
+    // basta um dos dois caminhos funcionar para a mensagem não se perder
+    Promise.all([toDb,toMail]).then(function(r){done(r[0]||r[1])});
   });
   document.getElementById('ano').textContent=new Date().getFullYear();
 })();
