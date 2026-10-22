@@ -580,6 +580,105 @@ input,select,textarea{font-size:16px}
 @keyframes lm-ripple{0%{transform:translate(-50%,-50%) scale(0);opacity:.6}100%{transform:translate(-50%,-50%) scale(4);opacity:0}}
 .btn.lm:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 @media (max-width:700px){.btn.lm .lm-label{white-space:normal;text-align:center}}
+
+/* =====================================================================
+   PREMIUM MONOCROMÁTICO CROMADO — sistema único (sobrepõe o anterior)
+   ===================================================================== */
+:root{
+  --ink:#0E0F12; --graphite:#2A2D33; --muted:#646A73; --line:#E4E6EA; --soft:#F6F7F8; --silver:#C9CDD3;
+  --brand:#0E0F12; --accent:#1F5FC4; --accent-soft:#EEF0F3;
+  --metal:linear-gradient(135deg,#F7F8FA 0%,#B8BDC5 38%,#FFFFFF 52%,#8D939C 100%);
+  --hair:linear-gradient(90deg,transparent,#C9CDD3 20%,#FFFFFF 50%,#C9CDD3 80%,transparent);
+  --hair-ink:linear-gradient(90deg,transparent,#B8BDC5 18%,#5D626B 50%,#B8BDC5 82%,transparent);
+}
+/* tipografia */
+h2{font-weight:600;letter-spacing:-.03em;color:var(--ink)}
+.slide h1,.slide h2{font-weight:600;line-height:1.08}
+label,.c-item b{font-weight:500}
+.lede,.about-text p,.line-body p,.q-list p,.partner p,.faq details p,.timeline p,.steps p,.g-stats span,.g-cta p{color:var(--muted)}
+/* acentos: cromado no lugar do azul */
+.kicker,.line-tag,.t-mark,.mvv h4{color:var(--graphite);letter-spacing:.2em}
+.slide .kicker{color:rgba(255,255,255,.75)}
+.site-header::after{height:1px;background:var(--hair-ink)}
+.site-header.scrolled{box-shadow:none}
+footer::before{height:1px;background:var(--hair)}
+.timeline::before{height:1px;background:var(--hair-ink)}
+@media (max-width:900px){.timeline::before{width:1px;height:auto;background:linear-gradient(180deg,transparent,#B8BDC5 10%,#5D626B 50%,#B8BDC5 90%,transparent)}}
+.timeline li::before{border:2px solid var(--ink);background:var(--bg);width:14px;height:14px}
+.steps li::before{color:var(--ink);font-weight:200;letter-spacing:-.04em;font-size:2rem}
+.g-stats strong{font-weight:200;letter-spacing:-.04em;
+  background:linear-gradient(135deg,#0E0F12 0%,#5D626B 45%,#9AA0A8 55%,#0E0F12 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.g-stats{border-top:1px solid var(--ink)}
+.partner{border-top:1px solid var(--ink)}
+.menu a{position:relative;color:var(--ink)}
+.menu a:hover{color:var(--ink);background:transparent}
+.menu a.active{color:var(--ink);background:transparent}
+.menu a.active:not(.btn)::after{content:"";position:absolute;left:14px;right:14px;bottom:4px;height:1px;background:linear-gradient(90deg,#B8BDC5,#0E0F12,#B8BDC5)}
+.map-link,.line-foot a,.partner a{color:var(--ink);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px}
+.map-link:hover,.line-foot a:hover,.partner a:hover{color:var(--accent)}
+.faq summary::after{color:var(--graphite)}
+.check input{accent-color:var(--ink)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+/* cantos: clicáveis = pílula · campos = 12px · fotos e cards = 10px */
+input,select,textarea{border-radius:12px}
+input:focus,select:focus,textarea:focus{border-color:var(--graphite);box-shadow:0 0 0 3px rgba(14,15,18,.07)}
+.about-media .photo,.line .photo,.q-media .photo,.form-card{border-radius:10px}
+.lines-ctrl button,.arrows button,.dots button,.lc-dots button{border-radius:999px}
+/* profundidade: sombra só no primário e no WhatsApp */
+.pillars-grid{border-top:0;box-shadow:none;position:relative}
+.pillars-grid::before{content:"";position:absolute;left:0;right:0;top:0;height:1px;background:var(--hair-ink)}
+.form-card{box-shadow:none;border:1px solid var(--line)}
+/* banner */
+.slide::after{background:radial-gradient(ellipse at center,rgba(14,15,18,.45) 0%,rgba(14,15,18,.78) 70%)}
+.arrows button{width:44px;height:44px;background:rgba(255,255,255,.08);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.38);color:#fff}
+.arrows button:hover{background:rgba(255,255,255,.16)}
+.dots button{width:18px;height:4px;background:rgba(255,255,255,.35)}
+.dots button[aria-current="true"]{width:28px;background:#fff}
+@media (max-width:700px){
+  .lines-ctrl button{border:1px solid var(--silver);background:var(--bg)}
+  .lc-dots button[aria-current="true"]{background:var(--ink)}
+}
+/* botões: 1) primário metal líquido */
+.btn.lm{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 28px;font-size:14.5px;font-weight:500;letter-spacing:.02em;color:#F2F3F5!important;
+  box-shadow:0 1px 2px rgba(0,0,0,.18),0 10px 24px -8px rgba(0,0,0,.22)}
+.btn.lm:hover{box-shadow:0 1px 2px rgba(0,0,0,.2),0 14px 28px -10px rgba(0,0,0,.28)}
+.slide .btn.lm,.slide .btn.lm:hover{box-shadow:0 0 0 1px rgba(255,255,255,.06)}
+.menu .btn.lm{min-height:40px;padding:0 20px;font-size:13.5px;margin-left:12px}
+/* 2) secundário glass (sobre foto) */
+.btn.btn-outline{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 28px;border-radius:999px;font-size:14.5px;font-weight:500;letter-spacing:.02em;
+  color:#fff;background:rgba(255,255,255,.08);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.38)}
+.btn.btn-outline:hover{background:rgba(255,255,255,.16);transform:translateY(-1px)}
+/* 3) secundário claro (fundo branco) */
+.btn.btn-ghost{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 28px;border-radius:999px;color:var(--ink);font-size:14.5px;font-weight:500;
+  border:1px solid transparent;background:linear-gradient(var(--bg),var(--bg)) padding-box,var(--metal) border-box}
+.btn.btn-ghost:hover{background:linear-gradient(var(--soft),var(--soft)) padding-box,var(--metal) border-box}
+@media (max-width:700px){.btn.lm,.btn.btn-outline{min-height:52px}.menu .btn.lm{min-height:48px;margin-left:0}}
+/* WhatsApp em metal líquido (modo ícone) */
+.wa.lm{background:transparent;width:52px;height:52px;border-radius:999px;overflow:hidden;isolation:isolate;display:grid;place-items:center;
+  box-shadow:0 1px 2px rgba(0,0,0,.2),0 12px 26px -10px rgba(0,0,0,.35)}
+.wa.lm .lm-label{display:grid;place-items:center;color:#25D366;line-height:0}
+.wa.lm svg{width:24px;height:24px}
+@media (max-width:700px){.wa.lm{width:48px;height:48px}.wa.lm svg{width:22px;height:22px}}
+
+/* ===== 11. galeria curva — Pesquisa e desenvolvimento ===== */
+.pesquisa-curva{position:relative;background:var(--bg);padding-block:clamp(72px,9vw,112px)}
+.pesquisa-curva::before,.pesquisa-curva::after{content:"";position:absolute;left:0;right:0;height:1px;background:var(--hair-ink)}
+.pesquisa-curva::before{top:0}.pesquisa-curva::after{bottom:0}
+.pc-head{display:grid;gap:14px;justify-items:center;text-align:center}
+.pc-foot p{max-width:52ch;margin:0 auto;text-align:center;color:var(--muted);font-size:1.08rem}
+.tgh{position:relative;overflow:hidden;container-type:size;height:480px;margin-block:4px}
+@media (max-width:1024px){.tgh{height:400px}}
+@media (max-width:700px){.tgh{height:330px}.pc-head,.pc-foot{padding-inline:max(24px,env(safe-area-inset-left,0px))}}
+.tgh-layer{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .5s}
+.tgh-tile{position:absolute;transform-style:preserve-3d}
+.tgh-slice{position:absolute;top:0;overflow:hidden;background:var(--soft)}
+.tgh-slice.first{border-radius:10px 0 0 10px}.tgh-slice.last{border-radius:0 10px 10px 0}
+.tgh-slice img{position:absolute;top:0;max-width:none;object-fit:cover;display:block}
+.tgh-paused .tgh-tile{animation-play-state:paused}
+@media (prefers-reduced-motion:reduce){.tgh-tile{animation-play-state:paused!important}}
+.tgh-fallback{display:none}
+.tgh.tgh-static{height:auto;container-type:normal}
+.tgh-static .tgh-fallback{display:block;width:min(720px,90%);margin:0 auto;border-radius:10px;aspect-ratio:16/9;object-fit:cover}
 </style>
 </head>
 <body>
@@ -752,13 +851,15 @@ input,select,textarea{font-size:16px}
   </section>
 
 
-  <section class="band" id="pesquisa">
-    <div class="photo" data-label="Foto: cientista com microscópio"><img src="img/pesquisa.jpg" srcset="img/pesquisa-m.jpg 900w, img/pesquisa.jpg 1600w" sizes="100vw" decoding="async" alt="Cientista observando amostra no microscópio" loading="lazy" onerror="this.parentNode.classList.add('nophoto');this.remove()"></div>
-    <div class="wrap"><div class="inner">
+  <section class="pesquisa-curva" id="pesquisa">
+    <div class="wrap pc-head">
       <p class="kicker">Pesquisa e desenvolvimento</p>
       <h2>Inovação que nasce no laboratório.</h2>
+    </div>
+    <div class="tgh" aria-hidden="true"><img class="tgh-fallback" src="img/pesquisa.jpg" alt="" loading="lazy"></div>
+    <div class="wrap pc-foot">
       <p>Nossa equipe de P&amp;D acompanha os avanços científicos para criar fórmulas modernas, com ativos selecionados e eficácia estudada em cada etapa.</p>
-    </div></div>
+    </div>
   </section>
 
   <section class="sec soft">
@@ -1000,9 +1101,76 @@ input,select,textarea{font-size:16px}
 })();
 </script>
 
+
+<script>
+// Galeria curva — porte em JavaScript puro do componente TiltedGridHero
+(function(){
+  var host=document.querySelector('.tgh'); if(!host) return;
+  if(!(window.CSS&&CSS.supports&&CSS.supports('container-type','size'))){host.classList.add('tgh-static');return}
+  var mobile=matchMedia('(max-width:700px)').matches;
+  var LIST=['pesquisa','banner-2','area-emagrecimento','empresa','qualidade-2','area-estetica-beleza','banner-3','qualidade-1','area-alto-rendimento','banner-1'];
+  var LIGHT={'banner-1':1,'banner-2':1,'banner-3':1,'pesquisa':1};
+  var imgs=LIST.map(function(n){return 'img/'+n+(mobile&&LIGHT[n]?'-m':'')+'.jpg'});
+  imgs.forEach(function(src){var i=new Image();i.src=src});
+  var SLICES=mobile?10:16, CAMERA=1.6, MAXW=55, SPEED=4, TILE=40, ASPECT=16/9, GAP=6, AXIS=50, FADE=12;
+  var bend=Math.min(85,Math.max(5,80))*Math.PI/180;
+  function arc(b){return (CAMERA-1+Math.cos(b))/(2*CAMERA*Math.sin(b))}
+  function deg(r){return r*180/Math.PI}
+  function rd(n){return +n.toFixed(4)}
+  function measure(w,h){
+    var th=Math.min(TILE/100*h, MAXW/100*w/ASPECT), radius=w*arc(bend);
+    if(!(th>0)||!(radius>0)) return null;
+    var unit=deg(th/radius), pitch=(ASPECT+GAP/100)*unit, limit=deg(bend)+ASPECT*unit/2;
+    var columns=Math.min(60,Math.max(2,Math.ceil(2*limit/pitch)));
+    var sweep=rd(columns*pitch/2);
+    return {columns:columns,sweep:sweep,unit:rd(unit),limit:rd(Math.min(sweep,limit))};
+  }
+  function u(n){return 'calc('+rd(n)+' * min('+TILE+'cqh, '+rd(MAXW/ASPECT)+'cqw))'}
+  var R=(+(100*arc(bend)).toFixed(3))+'cqw';
+  function turn(d){return 'translateZ('+R+') rotateY('+rd(d)+'deg) translateZ(-'+R+')'}
+  var layer=document.createElement('div'); layer.className='tgh-layer';
+  layer.style.perspective=(+(100*arc(bend)*CAMERA).toFixed(3))+'cqw';
+  layer.style.perspectiveOrigin='50% '+AXIS+'%';
+  var mask='linear-gradient(90deg,transparent,#000 '+FADE+'%,#000 '+(100-FADE)+'%,transparent)';
+  layer.style.maskImage=mask; layer.style.webkitMaskImage=mask;
+  var style=document.createElement('style'); host.appendChild(style); host.appendChild(layer);
+  var cur=null;
+  function build(L){
+    var columns=L.columns, sweep=L.sweep, unit=L.unit, limit=L.limit;
+    var hide=rd((sweep-limit)/(2*sweep||1)*100);
+    style.textContent='@keyframes tgh-orbit{from{transform:'+turn(-sweep)+'}to{transform:'+turn(sweep)+'}'+
+      '0%,'+hide+'%,'+rd(100-hide)+'%,100%{visibility:hidden}'+rd(hide+0.001)+'%,'+rd(100-hide-0.001)+'%{visibility:visible}}';
+    layer.textContent='';
+    var share=ASPECT/SLICES, dur=columns*SPEED;
+    for(var t=0;t<columns;t++)(function(t){
+      var first=columns-1-t, tile=document.createElement('div'); tile.className='tgh-tile';
+      tile.style.left='calc(50% - '+u(ASPECT/2)+')'; tile.style.top='calc('+AXIS+'% - '+u(.5)+')';
+      tile.style.width=u(ASPECT); tile.style.height=u(1);
+      tile.style.animation='tgh-orbit '+dur+'s linear '+(-t*SPEED)+'s infinite';
+      for(var k=0;k<SLICES;k++){
+        var sl=document.createElement('div'); sl.className='tgh-slice'+(k===0?' first':'')+(k===SLICES-1?' last':'');
+        sl.style.left=u((ASPECT-share)/2); sl.style.width=k===SLICES-1?u(share):'calc('+u(share)+' + 1px)';
+        sl.style.height=u(1); sl.style.transform=turn((ASPECT/2-(k+.5)*share)*unit);
+        var im=document.createElement('img'); im.alt=''; im.draggable=false; im.decoding='async';
+        im.style.left=u(-k*share); im.style.width=u(ASPECT); im.style.height=u(1);
+        sl.appendChild(im); tile.appendChild(sl);
+      }
+      function show(i){var src=imgs[((i%imgs.length)+imgs.length)%imgs.length];
+        [].forEach.call(tile.querySelectorAll('img'),function(im){if(im.getAttribute('src')!==src)im.setAttribute('src',src)})}
+      show(first);
+      tile.addEventListener('animationiteration',function(e){show(Math.round(e.elapsedTime/dur)*columns+first)});
+      layer.appendChild(tile);
+    })(t);
+    requestAnimationFrame(function(){layer.style.opacity=1});
+  }
+  new ResizeObserver(function(en){var r=en[0].contentRect,L=measure(r.width,r.height);if(!L)return;
+    if(cur&&cur.columns===L.columns&&cur.sweep===L.sweep&&cur.unit===L.unit)return;cur=L;build(L)}).observe(host);
+  if('IntersectionObserver' in window)new IntersectionObserver(function(es){host.classList.toggle('tgh-paused',!es[0].isIntersecting)}).observe(host);
+})();
+</script>
 <script type="module">
 // Botão metal líquido — versão sem React do componente LiquidMetalButton
-const btns=[...document.querySelectorAll('.btn')];
+const btns=[...document.querySelectorAll('.btn:not(.btn-outline), .wa')];
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const mounts=new Map();
 btns.forEach(b=>{
